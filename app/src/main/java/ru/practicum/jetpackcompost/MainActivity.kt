@@ -74,8 +74,7 @@ fun ContactImage(contact: Contact) {
         } else {
             Image(
                 modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape),
+                    .size(48.dp),
                 painter = painterResource(id = contact.imageRes),
                 contentDescription = null,
             )
