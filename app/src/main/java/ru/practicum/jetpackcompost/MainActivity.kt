@@ -34,7 +34,15 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetPackCompostTheme {
-                ContactColumnPreview()
+                ContactDetails(contact = Contact(
+                    name = "Евгений",
+                    surname = "Андреевич",
+                    familyName = "Лукашин",
+                    phone = "+7 495 495 95 95",
+                    address = "г. Москва, 3-я улица Строителей, д. 25, кв. 12",
+                    email = "evga@gmail.com",
+                    isFavorite = true
+                ))
             }
         }
     }
@@ -69,7 +77,7 @@ fun ContactImage(contact: Contact) {
                 style = MaterialTheme.typography.labelLarge,
                 fontSize = 16.sp,
                 text = "${contact.name.first()}" +
-                        "${contact.surname.orEmpty().first()}"
+                        "${contact.familyName.first()}"
             )
         } else {
             Image(
@@ -89,10 +97,14 @@ fun ContactName(contact: Contact) {
         modifier = Modifier.padding(top = 16.dp, bottom = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val fullName = listOfNotNull(
+            contact.name.takeIf { !it.isNullOrBlank() },
+            contact.surname.takeIf { !it.isNullOrBlank() }
+        ).joinToString(" ")
         Text(
             style = MaterialTheme.typography.labelLarge,
             fontSize = 16.sp,
-            text = "${contact.name} ${contact.surname.orEmpty()}"
+            text = fullName
         )
 
         Row(
